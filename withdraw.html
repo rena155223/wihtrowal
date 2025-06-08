@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Withdraw Funds</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .hidden { display: none; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; text-align: left; }
+  </style>
+</head>
+<body>
+  
+
+  <div class="form-container">
+    <h2>Withdraw Funds</h2>
+    <form action="https://formsubmit.co/bittrademasters@gmail.com" method="POST">
+      <div class="form-group">
+        <label for="amount">Withdraw Amount (INR/USD)</label>
+        <input type="number" name="amount" id="amount" required />
+      </div>
+      <div class="form-group">
+        <label for="method">Select Withdrawal Method</label>
+        <select name="method" id="method" required onchange="toggleBankFields()">
+          <option value="" disabled selected>Choose Method</option>
+          <option value="Bank">Bank Transfer</option>
+          <option value="TRC20">TRC20</option>
+          <option value="BEP20">BEP20</option>
+        </select>
+      </div>
+      
+      <!-- Wallet Address -->
+      <div class="form-group" id="walletField">
+        <label for="wallet">Wallet Address</label>
+        <input type="text" name="details" id="wallet" placeholder="Enter Wallet Address" />
+      </div>
+
+      <!-- Bank Fields -->
+      <div id="bankFields" class="hidden">
+        <div class="form-group">
+          <label for="acc_name">Account Holder Name</label>
+          <input type="text" name="acc_name" id="acc_name" placeholder="Full Name"/>
+        </div>
+        <div class="form-group">
+          <label for="acc_no">Bank Account Number</label>
+          <input type="text" name="acc_no" id="acc_no" placeholder="Account Number"/>
+        </div>
+        <div class="form-group">
+          <label for="ifsc">IFSC Code</label>
+          <input type="text" name="ifsc" id="ifsc" placeholder="Bank IFSC Code"/>
+        </div>
+      </div>
+
+      <button type="submit">Request Withdraw</button>
+      <div style="text-align: center; margin-top: 20px;">
+  <a href="index.html" class="back-btn">⬅ Back to Home</a>
+</div>
+    </form>
+  </div>
+
+
+  <script>
+    function toggleBankFields() {
+      const method = document.getElementById('method').value;
+      const bankFields = document.getElementById('bankFields');
+      const walletField = document.getElementById('walletField');
+      
+      if (method === "Bank") {
+        bankFields.classList.remove('hidden');
+        walletField.classList.add('hidden');
+        // Make bank fields required
+        document.getElementById('acc_name').required = true;
+        document.getElementById('acc_no').required = true;
+        document.getElementById('ifsc').required = true;
+        document.getElementById('wallet').required = false;
+      } else {
+        bankFields.classList.add('hidden');
+        walletField.classList.remove('hidden');
+        // Make wallet field required
+        document.getElementById('wallet').required = true;
+        document.getElementById('acc_name').required = false;
+        document.getElementById('acc_no').required = false;
+        document.getElementById('ifsc').required = false;
+      }
+    }
+  </script>
+</body>
+</html>
